@@ -29,3 +29,7 @@ Route::middleware([
 
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/home', [AdminController::class, 'index']);
+Route::get('/category', [AdminController::class, 'category']);
+Route::post('/addCat', [AdminController::class, 'addCat']);
+// Route::get('/deleteCat/{$id}', [AdminController::class, 'deleteCat'])->name('deleteCat');
+Route::get('/deleteCat/{id}', [AdminController::class, 'deleteCat']);
