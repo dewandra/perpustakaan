@@ -1,6 +1,8 @@
 <?php
 
-use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\BookController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -26,10 +28,25 @@ Route::middleware([
     })->name('dashboard');
 });
 
-
+// ------ ADMIN ROUTING ------  
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/home', [AdminController::class, 'index']);
-Route::get('/category', [AdminController::class, 'category']);
-Route::post('/addCat', [AdminController::class, 'addCat']);
-// Route::get('/deleteCat/{$id}', [AdminController::class, 'deleteCat'])->name('deleteCat');
-Route::get('/deleteCat/{id}', [AdminController::class, 'deleteCat']);
+
+Route::controller(CategoryController::class)->group(function(){
+    Route::get('/category', 'category');
+    Route::post('/addCat', 'addCat');
+    Route::get('/editCat/{id}', 'editCat');
+    Route::post('/updateCat/{id}', 'updateCat');
+    Route::get('/deleteCat/{id}', 'deleteCat');
+});
+
+Route::controller(BookController::class)->group(function(){
+    Route::get('/addBook', 'addBook');
+    Route::post('/storeBook', 'storeBook');
+    Route::get('/editBook/{id}', 'editBook');
+    Route::post('/updateBook/{id}', 'updateBook');
+    Route::get('/deleteBook/{id}', 'deleteBook');
+});
+
+
+
